@@ -1,0 +1,68 @@
+class User {
+  final String name;
+  final String avatar;
+  final String phone;
+  final String uid;
+  final String school;
+  final String platform;
+  Map<String, String>? imAccount;
+  Map<String, dynamic>? deviceInfo;
+  bool status;
+
+  User({
+    required this.name,
+    required this.avatar,
+    required this.phone,
+    required this.uid,
+    required this.school,
+    this.platform = 'chaoxing',
+    this.imAccount,
+    this.deviceInfo,
+    this.status = true
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+        name: json['name'] ?? '未知用户',
+        avatar: json['avatar'] ?? '',
+        phone: json['phone'] ?? '未知手机号',
+        uid: json['uid'] ?? '0',
+        school: json['school'] ?? '未知学校',
+        platform: json['platform'] ?? 'chaoxing',
+        imAccount: json['imAccount'] != null ?
+        Map<String, String>.from(json['imAccount']) : null,
+        deviceInfo: json['deviceInfo'] != null ?
+        Map<String, dynamic>.from(json['deviceInfo']) : null,
+        status: json['status'] ?? true
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'avatar': avatar,
+      'phone': phone,
+      'uid': uid,
+      'school': school,
+      'platform': platform,
+      'imAccount': imAccount,
+      'deviceInfo': deviceInfo,
+      'status': status
+    };
+  }
+
+  static User get empty => User(
+      name: '',
+      avatar: '',
+      phone: '',
+      uid: '',
+      school: ''
+  );
+
+  void setStatus(bool newStatus) {
+    status = newStatus;
+  }
+
+  bool get isChaoxing => platform == 'chaoxing';
+  bool get isRainClassroom => platform == 'rainClassroom';
+}
